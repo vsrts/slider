@@ -39,7 +39,7 @@ class ModSliderHelper{
 
             $query = $db->getQuery(true);
             $query->select('*')
-                ->from('slides');
+                ->from('slide_only');
 
             $db->setQuery($query);
             $results = $db->loadObjectList();
@@ -51,4 +51,28 @@ class ModSliderHelper{
 
         }
 	}
+
+    public static function getExcept($params){
+        $config = new JConfig();
+        $main_db = $config->db;
+
+        $db =JFactory::getDBO();
+        $database_name = "sushi";
+
+        if ($db->select($database_name)) {
+
+            $query = $db->getQuery(true);
+            $query->select('*')
+                ->from('slide_except');
+
+            $db->setQuery($query);
+            $results = $db->loadObjectList();
+
+            $db->select($main_db);
+
+            return $results;
+
+
+        }
+    }
 }
