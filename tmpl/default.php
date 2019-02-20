@@ -10,9 +10,9 @@ defined('_JEXEC') or die; ?>
                     if($slide->filter == 0){
                         echo $slide->image . "<br>";
                     }else if($slide->filter == 1){
-                        echo "хуй<br>";
-                    }else if($slide->filter == 2){
-                        echo "нахуй<br>";
+                        echo "<pre>";
+                            print_r($only);
+                        echo "</pre>";
                     }
 
                 }

@@ -7,6 +7,6 @@ require_once dirname(__FILE__) . '/helper.php';
 
 $slides = modSliderHelper::getSlider($params);
 $only = modSliderHelper::getOnly($params);
-$except = modSliderHelper::getExcept($params);
+
 
 require JModuleHelper::getLayoutPath('mod_slider');
