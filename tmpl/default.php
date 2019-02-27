@@ -7,13 +7,10 @@ defined('_JEXEC') or die; ?>
                 //$subdomain = explode('.', $domain);
                 foreach($slides as $slide){
 
-                    if($slide->filter == 0){
-                        echo $slide->image . "<br>";
-                    }else if($slide->filter == 1){
-                        echo "<pre>";
-                            print_r($only);
-                        echo "</pre>";
-                    }
+                    echo "<pre>";
+                    print_r($slide);
+                    echo "</pre>";
+
 
                 }
                 ?>

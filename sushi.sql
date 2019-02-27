@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 20 2019 г., 10:48
+-- Время создания: Фев 27 2019 г., 11:01
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -90,19 +90,18 @@ INSERT INTO `points` (`id`, `address`, `phone`, `time`, `mail`, `frontpad`, `cit
 CREATE TABLE `slides` (
   `id` int(10) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
-  `filter` int(10) NOT NULL
+  `code` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `slides`
 --
 
-INSERT INTO `slides` (`id`, `image`, `code`, `filter`) VALUES
-(1, '/images/slide/1.jpg', NULL, 0),
-(2, '/images/slide/2.jpg', NULL, 0),
-(3, '/images/slide/3.jpg', NULL, 1),
-(4, '/images/slide/4.jpg', NULL, 1);
+INSERT INTO `slides` (`id`, `image`, `code`) VALUES
+(1, '/images/slide/1.jpg', NULL),
+(2, '/images/slide/2.jpg', NULL),
+(3, '/images/slide/3.jpg', NULL),
+(4, '/images/slide/4.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -111,16 +110,20 @@ INSERT INTO `slides` (`id`, `image`, `code`, `filter`) VALUES
 --
 
 CREATE TABLE `slide_only` (
+  `id` int(11) NOT NULL,
   `slide_id` int(10) NOT NULL,
-  `city_id` int(10) NOT NULL
+  `city_id` int(10) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `slide_only`
 --
 
-INSERT INTO `slide_only` (`slide_id`, `city_id`) VALUES
-(3, 13);
+INSERT INTO `slide_only` (`id`, `slide_id`, `city_id`) VALUES
+(1, 1, 0),
+(2, 2, 0),
+(3, 3, 4),
+(4, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -169,7 +172,7 @@ ALTER TABLE `slides`
 -- Индексы таблицы `slide_only`
 --
 ALTER TABLE `slide_only`
-  ADD PRIMARY KEY (`slide_id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `slide_id` (`slide_id`),
   ADD KEY `city_id` (`city_id`);
 
@@ -202,6 +205,12 @@ ALTER TABLE `slides`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT для таблицы `slide_only`
+--
+ALTER TABLE `slide_only`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
@@ -221,8 +230,7 @@ ALTER TABLE `points`
 -- Ограничения внешнего ключа таблицы `slide_only`
 --
 ALTER TABLE `slide_only`
-  ADD CONSTRAINT `slide_only_ibfk_1` FOREIGN KEY (`slide_id`) REFERENCES `slides` (`id`),
-  ADD CONSTRAINT `slide_only_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
+  ADD CONSTRAINT `slide_only_ibfk_1` FOREIGN KEY (`slide_id`) REFERENCES `slides` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,6 @@
 class ModSliderHelper{
 	
     public static function getSlider($params){
-
         $config = new JConfig();
         $main_db = $config->db;
 
@@ -12,9 +11,12 @@ class ModSliderHelper{
 
         if ($db->select($database_name)) {
 
-            $query = $db->getQuery(true);
-            $query->select('*')
-                ->from('slides');
+            $query = "SELECT image, code
+                        FROM slides
+                        LEFT JOIN slide_only ON slide_only.slide_id=slides.id
+                        LEFT JOIN cities ON slide_only.city_id=cities.id
+                        WHERE slide_only.city_id = 0 OR cities.subdomain = '" . $params . "'"
+;
 
             $db->setQuery($query);
             $results = $db->loadObjectList();
@@ -37,28 +39,7 @@ class ModSliderHelper{
 //
 //Так же можете использовать LEFT OUTER JOIN и/или RIGHT OUTER JOIN если, например, хотите выводить товары, которые еще не занесены в таблицу mag_tov
 
-	public static function getOnly($params){
-        $city = "";
-		$config = new JConfig();
-        $main_db = $config->db;
 
-        $db =JFactory::getDBO();
-        $database_name = "sushi";
-
-        if ($db->select($database_name)) {
-
-            $query = '';
-
-            $db->setQuery($query);
-            $results = $db->loadObjectList();
-
-            $db->select($main_db);
-
-            return $results;
-
-
-        }
-	}
 
 
 }
