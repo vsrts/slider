@@ -15,7 +15,7 @@ class ModSliderHelper{
                         FROM slides
                         LEFT JOIN slide_only ON slide_only.slide_id=slides.id
                         LEFT JOIN cities ON slide_only.city_id=cities.id
-                        WHERE slide_only.city_id = 0 OR cities.subdomain = '" . $params . "'"
+                        WHERE slide_only.city_id = 0 OR cities.subdomain = '" . $params . "' ORDER BY sort ASC"
 ;
 
             $db->setQuery($query);
